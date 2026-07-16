@@ -277,23 +277,15 @@
     </div>
 </section>
 <script>
-document.getElementById("orderForm").addEventListener("submit", function () {
+document.getElementById("orderForm").addEventListener("submit", function (e) {
+    // 1. Stop the form from submitting immediately
+    e.preventDefault();
 
     const selectedPack = document.getElementById("order_pack").value;
+    let price = selectedPack.includes("2 Packs") ? 40000 : 21500;
+    let quantity = selectedPack.includes("2 Packs") ? 2 : 1;
 
-    let price = 0;
-    let quantity = 1;
-
-    if (selectedPack.includes("1 Pack")) {
-        price = 21500;
-        quantity = 1;
-    }
-
-    if (selectedPack.includes("2 Packs")) {
-        price = 40000;
-        quantity = 2;
-    }
-
+    // 2. Fire the TikTok Pixel event
     ttq.track('InitiateCheckout', {
         content_id: 'ginseng-five-treasure-tea',
         content_name: 'Ginseng Five Treasure Tea',
@@ -301,16 +293,18 @@ document.getElementById("orderForm").addEventListener("submit", function () {
         quantity: quantity,
         value: price,
         currency: 'NGN',
-        contents: [
-            {
-                content_id: 'ginseng-five-treasure-tea',
-                content_name: 'Ginseng Five Treasure Tea',
-                quantity: quantity,
-                price: price
-            }
-        ]
+        contents: [{
+            content_id: 'ginseng-five-treasure-tea',
+            content_name: 'Ginseng Five Treasure Tea',
+            quantity: quantity,
+            price: price
+        }]
     });
 
+    // 3. Submit the form after a small delay (500ms) to ensure the pixel fires
+    setTimeout(() => {
+        e.target.submit();
+    }, 500);
 });
 </script>
 </body>
