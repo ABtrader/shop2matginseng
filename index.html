@@ -239,7 +239,7 @@
             <p>Fill the form below to complete your order. We offer Pay on Delivery.</p>
         </div>
         
-        <form action="https://api.web3forms.com/submit" method="POST">
+        <form id="orderForm" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="7264bb7e-6a35-4176-93c0-fab304210602">
             
             <div class="mb-3">
@@ -259,7 +259,7 @@
 
             <div class="mb-3">
                 <label>Select Order Pack</label>
-                <select name="order_pack" class="form-select" required>
+                <select id="order_pack" name="order_pack" class="form-select" required>
                     <option value="" disabled selected>Choose your option...</option>
                     <option value="1 Pack - ₦21,500">1 Pack - ₦21,500</option>
                     <option value="2 Packs - ₦40,000 (Best Value)">2 Packs - ₦40,000 (Best Value)</option>
@@ -276,6 +276,42 @@
         </form>
     </div>
 </section>
+<script>
+document.getElementById("orderForm").addEventListener("submit", function () {
 
+    const selectedPack = document.getElementById("order_pack").value;
+
+    let price = 0;
+    let quantity = 1;
+
+    if (selectedPack.includes("1 Pack")) {
+        price = 21500;
+        quantity = 1;
+    }
+
+    if (selectedPack.includes("2 Packs")) {
+        price = 40000;
+        quantity = 2;
+    }
+
+    ttq.track('InitiateCheckout', {
+        content_id: 'ginseng-five-treasure-tea',
+        content_name: 'Ginseng Five Treasure Tea',
+        content_type: 'product',
+        quantity: quantity,
+        value: price,
+        currency: 'NGN',
+        contents: [
+            {
+                content_id: 'ginseng-five-treasure-tea',
+                content_name: 'Ginseng Five Treasure Tea',
+                quantity: quantity,
+                price: price
+            }
+        ]
+    });
+
+});
+</script>
 </body>
 </html>
