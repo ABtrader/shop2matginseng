@@ -281,11 +281,15 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     // 1. Stop the form from submitting immediately
     e.preventDefault();
 
+    // Capture user input from the form
+    const name = document.querySelector('input[name="name"]').value;
+    const phone = document.querySelector('input[name="phone"]').value;
     const selectedPack = document.getElementById("order_pack").value;
+
     let price = selectedPack.includes("2 Packs") ? 40000 : 21500;
     let quantity = selectedPack.includes("2 Packs") ? 2 : 1;
 
-    // 2. Fire the TikTok Pixel event
+    // 2. Fire the TikTok Pixel event with user info for better EMQ score
     ttq.track('InitiateCheckout', {
         content_id: 'ginseng-five-treasure-tea',
         content_name: 'Ginseng Five Treasure Tea',
@@ -298,10 +302,14 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
             content_name: 'Ginseng Five Treasure Tea',
             quantity: quantity,
             price: price
-        }]
+        }],
+        user: {
+            phone_number: phone,
+            name: name
+        }
     });
 
-    // 3. Submit the form after a small delay (500ms) to ensure the pixel fires
+    // 3. Submit the form after a small delay (500ms)
     setTimeout(() => {
         e.target.submit();
     }, 500);
