@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Successful</title>
+    <!-- TikTok Pixel Base Code -->
+    <script>
+        !function (w, d, t) {
+          w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+          ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+          ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+          for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+          ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+          ttq.load('D9BUR8JC77UARCKB5O70');
+          ttq.page();
+        }(window, document, 'ttq');
+    </script>
+    <!-- Track the Purchase event immediately upon loading this page -->
+    <script>
+        ttq.track('CompletePayment', {
+            content_name: 'Ginseng Five Treasure Tea',
+            content_type: 'product',
+            currency: 'NGN',
+            value: 0 // You can update this based on the order
+        });
+    </script>
+</head>
+<body>
+    <h1>Order Received!</h1>
+    <p>Thank you for your order. We will contact you shortly.</p>
+</body>
+</html>

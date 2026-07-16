@@ -240,8 +240,9 @@
         </div>
         
         <form id="orderForm" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value="7264bb7e-6a35-4176-93c0-fab304210602">
-            
+    <input type="hidden" name="access_key" value="7264bb7e-6a35-4176-93c0-fab304210602">
+    <input type="hidden" name="redirect" value="https://www.shop2mart.online/success.html"> 
+    
             <div class="mb-3">
                 <label>Full Name</label>
                 <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
@@ -281,35 +282,34 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     // 1. Stop the form from submitting immediately
     e.preventDefault();
 
-    // Capture user input from the form
+    // 2. Capture data from your form
     const name = document.querySelector('input[name="name"]').value;
     const phone = document.querySelector('input[name="phone"]').value;
     const selectedPack = document.getElementById("order_pack").value;
-
+    
     let price = selectedPack.includes("2 Packs") ? 40000 : 21500;
     let quantity = selectedPack.includes("2 Packs") ? 2 : 1;
 
-    // 2. Fire the TikTok Pixel event with user info for better EMQ score
-    ttq.track('InitiateCheckout', {
-        content_id: 'ginseng-five-treasure-tea',
-        content_name: 'Ginseng Five Treasure Tea',
-        content_type: 'product',
-        quantity: quantity,
-        value: price,
-        currency: 'NGN',
-        contents: [{
-            content_id: 'ginseng-five-treasure-tea',
-            content_name: 'Ginseng Five Treasure Tea',
-            quantity: quantity,
-            price: price
-        }],
-        user: {
-            phone_number: phone,
-            name: name
-        }
+    // 3. Identify the user for better matching (Advanced Matching)
+    ttq.identify({
+        "phone_number": phone,
+        "name": name
     });
 
-    // 3. Submit the form after a small delay (500ms)
+    // 4. Track the InitiateCheckout event with real data
+    ttq.track('InitiateCheckout', {
+        "contents": [{
+            "content_id": "ginseng-five-treasure-tea",
+            "content_type": "product",
+            "content_name": "Ginseng Five Treasure Tea",
+            "quantity": quantity,
+            "price": price
+        }],
+        "value": price,
+        "currency": "NGN"
+    });
+
+    // 5. Submit the form after a short delay
     setTimeout(() => {
         e.target.submit();
     }, 500);
