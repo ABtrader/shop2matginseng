@@ -290,30 +290,38 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     let price = selectedPack.includes("2 Packs") ? 40000 : 21500;
     let quantity = selectedPack.includes("2 Packs") ? 2 : 1;
 
+    // Clean phone number to E.164 format (+234...)
+    let cleanedPhone = phone.replace(/[^0-9]/g, '');
+    if (cleanedPhone.startsWith('0')) {
+        cleanedPhone = '+234' + cleanedPhone.substring(1);
+    } else if (!cleanedPhone.startsWith('+')) {
+        cleanedPhone = '+' + cleanedPhone;
+    }
+
     // 3. Identify the user for better matching (Advanced Matching)
     ttq.identify({
-        "phone_number": phone,
+        "phone_number": cleanedPhone,
         "name": name
     });
 
     // 4. Track the InitiateCheckout event with corrected data types
-ttq.track('InitiateCheckout', {
-    "contents": [{
-        "content_id": "ginseng-five-treasure-tea",
-        "content_type": "product",
-        "content_name": "Ginseng Five Treasure Tea",
-        "quantity": parseInt(quantity), // Ensure quantity is an integer
-        "price": parseFloat(price)      // Ensure price is a number
-    }],
-    "value": parseFloat(price),         // Ensure value is a number
-    "currency": "NGN",
-    "content_type": "product"           // Explicitly add at top level
-});
+    ttq.track('InitiateCheckout', {
+        "contents": [{
+            "content_id": "ginseng-five-treasure-tea",
+            "content_type": "product",
+            "content_name": "Ginseng Five Treasure Tea",
+            "quantity": parseInt(quantity),
+            "price": parseFloat(price)
+        }],
+        "value": parseFloat(price),
+        "currency": "NGN",
+        "content_type": "product"
+    });
 
-// 5. Submit the form after a short delay
-setTimeout(() => {
-    e.target.submit();
-}, 500);
+    // 5. Submit the form after a short delay
+    setTimeout(() => {
+        e.target.submit();
+    }, 500);
 });
 </script>
 </body>
