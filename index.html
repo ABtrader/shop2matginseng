@@ -296,23 +296,24 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
         "name": name
     });
 
-    // 4. Track the InitiateCheckout event with real data
-    ttq.track('InitiateCheckout', {
-        "contents": [{
-            "content_id": "ginseng-five-treasure-tea",
-            "content_type": "product",
-            "content_name": "Ginseng Five Treasure Tea",
-            "quantity": quantity,
-            "price": price
-        }],
-        "value": price,
-        "currency": "NGN"
-    });
+    // 4. Track the InitiateCheckout event with corrected data types
+ttq.track('InitiateCheckout', {
+    "contents": [{
+        "content_id": "ginseng-five-treasure-tea",
+        "content_type": "product",
+        "content_name": "Ginseng Five Treasure Tea",
+        "quantity": parseInt(quantity), // Ensure quantity is an integer
+        "price": parseFloat(price)      // Ensure price is a number
+    }],
+    "value": parseFloat(price),         // Ensure value is a number
+    "currency": "NGN",
+    "content_type": "product"           // Explicitly add at top level
+});
 
-    // 5. Submit the form after a short delay
-    setTimeout(() => {
-        e.target.submit();
-    }, 500);
+// 5. Submit the form after a short delay
+setTimeout(() => {
+    e.target.submit();
+}, 500);
 });
 </script>
 </body>
