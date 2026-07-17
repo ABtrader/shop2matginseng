@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Successful</title>
-    <!-- TikTok Pixel Base Code (Standardized) -->
+    <!-- TikTok Pixel Base Code -->
     <script>
     !function (w, d, t) {
       w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
@@ -14,7 +14,7 @@
     }(window, document, 'ttq');
     </script>
     
-    <!-- Robust Track the Purchase event -->
+    <!-- Optimized Track the Purchase event -->
     <script>
         window.onload = function() {
             setTimeout(function() {
@@ -24,7 +24,9 @@
                         content_type: 'product',
                         content_id: 'ginseng-five-treasure-tea',
                         currency: 'NGN',
-                        value: 0
+                        value: 0,
+                        // Adding these parameters helps clear TikTok's "Match Quality" warnings
+                        quantity: 1
                     });
                     console.log("TikTok CompletePayment event fired!");
                 }
