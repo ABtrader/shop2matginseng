@@ -14,7 +14,7 @@
     }(window, document, 'ttq');
     </script>
     
-    <!-- Optimized Track the Purchase event -->
+    <!-- Optimized Track the Purchase event with Advanced Matching -->
     <script>
         window.onload = function() {
             setTimeout(function() {
@@ -25,10 +25,17 @@
                         content_id: 'ginseng-five-treasure-tea',
                         currency: 'NGN',
                         value: 0,
-                        // Adding these parameters helps clear TikTok's "Match Quality" warnings
-                        quantity: 1
+                        quantity: 1,
+                        // Advanced Matching parameters to resolve critical warnings
+                        user: {
+                            // Note: If you capture user email/phone from your order form, 
+                            // replace the placeholders below with the actual values.
+                            // Values must be strings.
+                            email: '', 
+                            phone_number: ''
+                        }
                     });
-                    console.log("TikTok CompletePayment event fired!");
+                    console.log("TikTok CompletePayment event fired with Advanced Matching!");
                 }
             }, 500);
         };
