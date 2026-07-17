@@ -13,16 +13,22 @@
       ttq.page();
     }(window, document, 'ttq');
     </script>
-    <!-- Track the Purchase event correctly -->
+    
+    <!-- Robust Track the Purchase event -->
     <script>
-        ttq.ready(function() {
-            ttq.track('CompletePayment', {
-                content_name: 'Ginseng Five Treasure Tea',
-                content_type: 'product',
-                currency: 'NGN',
-                value: 0
-            });
-        });
+        window.onload = function() {
+            setTimeout(function() {
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('CompletePayment', {
+                        content_name: 'Ginseng Five Treasure Tea',
+                        content_type: 'product',
+                        currency: 'NGN',
+                        value: 0
+                    });
+                    console.log("TikTok CompletePayment event fired!");
+                }
+            }, 500);
+        };
     </script>
 </head>
 <body>
