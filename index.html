@@ -240,8 +240,8 @@
         </div>
         
         <form id="orderForm" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="7264bb7e-6a35-4176-93c0-fab304210602">
-    <input type="hidden" name="redirect" value="https://www.shop2mart.online/success.html"> 
+            <input type="hidden" name="access_key" value="7264bb7e-6a35-4176-93c0-fab304210602">
+            <input type="hidden" name="redirect" value="https://www.shop2mart.online/success.html"> 
 
             <div class="mb-3">
                 <label>Full Name</label>
@@ -282,7 +282,7 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     // 1. Stop the form from submitting immediately
     e.preventDefault();
 
-    // 2. Capture data from your form
+    // 2. Capture data
     const name = document.querySelector('input[name="name"]').value;
     const phone = document.querySelector('input[name="phone"]').value;
     const selectedPack = document.getElementById("order_pack").value;
@@ -298,25 +298,35 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
         cleanedPhone = '+' + cleanedPhone;
     }
 
-    // 3. Identify the user for better matching (Advanced Matching)
-    ttq.identify({
-        "phone_number": cleanedPhone,
-        "name": name
-    });
+    // 3. TikTok Advanced Matching & Tracking
+    if (typeof ttq !== 'undefined') {
+        ttq.identify({
+            "phone_number": cleanedPhone
+        });
+        ttq.track('InitiateCheckout', {
+            "contents": [{
+                "content_id": "ginseng-five-treasure-tea",
+                "content_type": "product",
+                "content_name": "Ginseng Five Treasure Tea",
+                "quantity": parseInt(quantity),
+                "price": parseFloat(price)
+            }],
+            "value": parseFloat(price),
+            "currency": "NGN"
+        });
+    }
 
-    // 4. Track the InitiateCheckout event with corrected data types
-    ttq.track('InitiateCheckout', {
-        "contents": [{
-            "content_id": "ginseng-five-treasure-tea",
-            "content_type": "product",
-            "content_name": "Ginseng Five Treasure Tea",
-            "quantity": parseInt(quantity),
-            "price": parseFloat(price)
-        }],
-        "value": parseFloat(price),
-        "currency": "NGN",
-        "content_type": "product"
-    });
+    // 4. Meta Pixel Tracking
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout', {
+            value: parseFloat(price),
+            currency: 'NGN',
+            content_name: 'Ginseng Five Treasure Tea',
+            content_type: 'product',
+            content_ids: ['ginseng-five-treasure-tea'],
+            num_items: parseInt(quantity)
+        });
+    }
 
     // 5. Submit the form after a short delay
     setTimeout(() => {

@@ -3,6 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Successful</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '4019494565021829');
+    fbq('track', 'PageView');
+    fbq('track', 'Purchase', {
+        value: 0,
+        currency: 'NGN',
+        content_name: 'Ginseng Five Treasure Tea',
+        content_type: 'product',
+        content_ids: ['ginseng-five-treasure-tea']
+    });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=4019494565021829&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- TikTok Pixel Base Code -->
     <script>
     !function (w, d, t) {
@@ -14,10 +40,11 @@
     }(window, document, 'ttq');
     </script>
     
-    <!-- Optimized Track the Purchase event with Advanced Matching -->
+    <!-- Optimized Track the Purchase event -->
     <script>
         window.onload = function() {
             setTimeout(function() {
+                // TikTok Purchase Tracking
                 if (typeof ttq !== 'undefined') {
                     ttq.track('CompletePayment', {
                         content_name: 'Ginseng Five Treasure Tea',
@@ -25,17 +52,9 @@
                         content_id: 'ginseng-five-treasure-tea',
                         currency: 'NGN',
                         value: 0,
-                        quantity: 1,
-                        // Advanced Matching parameters to resolve critical warnings
-                        user: {
-                            // Note: If you capture user email/phone from your order form, 
-                            // replace the placeholders below with the actual values.
-                            // Values must be strings.
-                            email: '', 
-                            phone_number: ''
-                        }
+                        quantity: 1
                     });
-                    console.log("TikTok CompletePayment event fired with Advanced Matching!");
+                    console.log("TikTok CompletePayment event fired!");
                 }
             }, 500);
         };
