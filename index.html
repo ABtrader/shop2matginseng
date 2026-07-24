@@ -65,7 +65,7 @@
                 <h1>Premium Ginseng Five Treasure Tea</h1>
                 <div class="price-box">
                     <div class="pack"><h3>1 Pack</h3><h2>₦21,500</h2></div>
-                    <div class="pack best"><span>Best Value</span><h3>2 Packs</h3><h2>₦40,000</h2><p>Save ₦3,000</p></div>
+                    <div class="pack best"><span>Best Value</span><h3>2 Packs</h3><h2>₦37,000</h2><p>Save ₦6,000</p></div>
                 </div>
                 <div class="shipping-hero-banner">✨ FREE SHIPPING PLUS PAY ON DELIVERY</div>
                 <div class="buttons">
@@ -264,7 +264,7 @@
                 <select id="order_pack" name="order_pack" class="form-select" required>
                     <option value="" disabled selected>Choose your option...</option>
                     <option value="1 Pack - ₦21,500">1 Pack - ₦21,500</option>
-                    <option value="2 Packs - ₦40,000 (Best Value)">2 Packs - ₦40,000 (Best Value)</option>
+                    <option value="2 Packs - ₦37,000 (Best Value)">2 Packs - ₦37,000 (Best Value)</option>
                 </select>
             </div>
 
@@ -288,7 +288,7 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
     const phone = document.querySelector('input[name="phone"]').value;
     const selectedPack = document.getElementById("order_pack").value;
     
-    let price = selectedPack.includes("2 Packs") ? 40000 : 21500;
+    let price = selectedPack.includes("2 Packs") ? 37000 : 21500;
     let quantity = selectedPack.includes("2 Packs") ? 2 : 1;
 
     // Clean phone number to E.164 format (+234...)
